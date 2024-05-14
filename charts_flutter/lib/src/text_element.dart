@@ -22,7 +22,7 @@ import 'package:charts_common/common.dart' as common
         TextMeasurement,
         TextStyle;
 import 'package:flutter/rendering.dart'
-    show Color, TextBaseline, TextPainter, TextSpan, TextStyle;
+    show Color, TextBaseline, TextPainter, TextScaler, TextSpan, TextStyle;
 
 /// Flutter implementation for text measurement and painter.
 class TextElement implements common.TextElement {
@@ -31,7 +31,7 @@ class TextElement implements common.TextElement {
   @override
   final String text;
 
-  final double? textScaleFactor;
+  final TextScaler? textScaler;
 
   var _painterReady = false;
   common.TextStyle? _textStyle;
@@ -46,7 +46,7 @@ class TextElement implements common.TextElement {
 
   double? _opacity;
 
-  TextElement(this.text, {common.TextStyle? style, this.textScaleFactor})
+  TextElement(this.text, {common.TextStyle? style, this.textScaler})
       : _textStyle = style;
 
   @override
@@ -162,8 +162,8 @@ class TextElement implements common.TextElement {
           ? ellipsis
           : null;
 
-    if (textScaleFactor != null) {
-      _textPainter.textScaleFactor = textScaleFactor!;
+    if (textScaler != null) {
+      _textPainter.textScaler = textScaler!;
     }
 
     _textPainter.layout(maxWidth: maxWidth?.toDouble() ?? double.infinity);
